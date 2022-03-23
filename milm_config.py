@@ -10,6 +10,9 @@ LINE_TWO = "GENERIC TOWN"
 # Medical Record Number
 MRN = "0000000000"
 
+# Contact Serial Number
+CSN = "0000000000"
+
 # Patient Name
 PATIENT = "Bobison, Alice"
 
