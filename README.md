@@ -16,3 +16,4 @@ BSD license, except for `Roboto-Medium.ttf` which is released under the Apache l
 
 ## Usage
 
+Run (probably on boot on a Pi). Press Enter to print a label.
