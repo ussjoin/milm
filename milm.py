@@ -1,4 +1,4 @@
-#! env python3
+#! /usr/bin/env python3
 """
 
 This program generates timestamped milk labels.
@@ -141,5 +141,7 @@ if __name__ == "__main__":
         key = readchar.readchar()
         if key == readchar.key.CTRL_C:
             exit(0)
-        make_label()
+        else:
+            print("Printing a label.")
+            make_label()
 
