@@ -13,6 +13,7 @@ import treepoem # https://github.com/adamchainz/treepoem
 from wand.image import Image # https://docs.wand-py.org/
 from wand.drawing import Drawing
 from wand.color import Color
+import readchar
 
 # https://brother-ql.net/ - this program calls the command-line utilities,
 #   but doesn't use them pythonically
@@ -31,7 +32,7 @@ def make_label():
     # Aztec code is 0.3" square.
     # 1D barcode is 1.6" wide and 0.4" high.
     res = 290
-    with Image(width=int(res*2.2), height=int(res*1.2), background = Color('white')) as img:
+    with Image(width=696, height=348, background = Color('white')) as img:
         draw_l1 = Drawing()
         draw_l1.text_alignment = 'center'
         draw_l1.font = './Roboto-Medium.ttf'
@@ -102,22 +103,24 @@ def make_label():
         
         csn_bc = treepoem.generate_barcode(
             barcode_type = "code128",
-            data = milm_config.CSN
+            data = milm_config.CSN,
             )
         
         
         az_bc.save('aztmp.png', format='PNG')
         draw_az = Drawing()
         az_bc_w = Image(filename='aztmp.png')
-        draw_az.composite(operator='atop', left=int(img.width*0.8), top=int(res*0.89),
+        az_bc_w.resize(width=int(az_bc_w.width*1.4), height=int(az_bc_w.height*1.4), filter='point')
+        draw_az.composite(operator='atop', left=int(img.width*0.8), top=int(res*0.8),
             width=az_bc_w.width, height=az_bc_w.height, image=az_bc_w)
         draw_az(img)
         
         csn_bc.save('csntmp.png', format='PNG')
         draw_csnbc = Drawing()
         csn_bc_w = Image(filename='csntmp.png')
-        draw_csnbc.composite(operator='atop', left=int(img.width*0.05), top=int(res*0.9),
-            width=csn_bc_w.width*1.7, height=int(csn_bc_w.height/2), image=csn_bc_w)
+        csn_bc_w.resize(width=int(csn_bc_w.width * 2.3), height=int(csn_bc_w.height), filter='point')
+        draw_csnbc.composite(operator='atop', left=int(img.width*0.02), top=int(res*0.8),
+            width=csn_bc_w.width, height=csn_bc_w.height, image=csn_bc_w)
         draw_csnbc(img)
         
 
@@ -125,14 +128,16 @@ def make_label():
         subprocess.run(
             ["brother_ql_create --model QL-800 --label-size 62 ./temp.png > labelout.bin"],
             shell=True, check=False)
-        subprocess.run([f"brother_ql_print labelout.bin {qsl_config.PRINTER_IDENTIFIER}"],
+        subprocess.run([f"brother_ql_print labelout.bin {milm_config.PRINTER_IDENTIFIER}"],
             shell=True, check=False)
         os.remove('temp.png')
-        os.remove('aztemp.png')
-        os.remove('csntemp.png')
+        os.remove('aztmp.png')
+        os.remove('csntmp.png')
         os.remove('labelout.bin')
 
 if __name__ == "__main__":
     while True:
-        input('Press Enter to make a label.')
+        print("Press any key to make a label.")
+        readchar.readchar()
         make_label()
+
