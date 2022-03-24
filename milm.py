@@ -138,6 +138,8 @@ def make_label():
 if __name__ == "__main__":
     while True:
         print("Press any key to make a label.")
-        readchar.readchar()
+        key = readchar.readchar()
+        if key == readchar.key.CTRL_C:
+            exit(0)
         make_label()
 
