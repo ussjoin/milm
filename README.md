@@ -38,6 +38,9 @@ Get into the folder:
 Get the python requirements:
 `sudo pip3 install -r requirements.txt`
 
+Optionally but you almost definitely want to do this:
+`vim milm_config.py` to change the settings to the label you need.
+
 To run:
 
 `./milm.py`
