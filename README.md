@@ -1,4 +1,4 @@
-# Maternal Integrated Lactation Marking system (MILM)
+# Maternal Integrated Lactation Marking system (MILMs)
 
 ## Purpose
 
@@ -26,6 +26,14 @@ BSD license, except for `Roboto-Medium.ttf` which is released under the Apache l
 
 Get the non-Python requirements:
 `sudo apt install ghostscript imagemagick` (or as necessary for your environment)
+
+If you're installing on a new RasPiOS-Lite image, add `git python3-pip` at least, and (for your own sanity) I'd suggest `screen vim` as well.
+
+Check out this repo:
+`git clone https://github.com/ussjoin/milm.git`
+
+Get into the folder:
+`cd milm`
 
 Get the python requirements:
 `sudo pip3 install -r requirements.txt`
