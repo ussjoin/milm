@@ -134,8 +134,8 @@ def make_label():
         subprocess.run(
             ["brother_ql_create --model QL-800 --label-size 62 ./temp.png > labelout.bin"],
             shell=True, check=False)
-        # subprocess.run([f"brother_ql_print labelout.bin {milm_config.PRINTER_IDENTIFIER}"],
-#             shell=True, check=False)
+        subprocess.run([f"brother_ql_print labelout.bin {milm_config.PRINTER_IDENTIFIER}"],
+            shell=True, check=False)
         os.remove('temp.png')
         os.remove('labelout.bin')
 
