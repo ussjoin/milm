@@ -41,6 +41,8 @@ Get the python requirements:
 Optionally but you almost definitely want to do this:
 `vim milm_config.py` to change the settings to the label you need.
 
+NOTE: If you change the barcodedata inputs, you MUST delete the two `.png` files in the directory or they won't be regenerated. (This is to let a low-power server only do the generation once.)
+
 To run:
 
 `./milm.py`

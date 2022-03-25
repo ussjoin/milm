@@ -25,6 +25,21 @@ import milm_config
 # 2.2 inches wide
 
 
+def make_barcodes():
+    if not os.path.exists('aztmp.png'):
+        az_bc = treepoem.generate_barcode(
+            barcode_type = "azteccode",
+            data = milm_config.BARCODE_DATA,
+            )
+        az_bc.save('aztmp.png', format='PNG')
+    
+    if not os.path.exists('csntmp.png'):
+        csn_bc = treepoem.generate_barcode(
+            barcode_type = "code128",
+            data = milm_config.CSN,
+            )
+        csn_bc.save('csntmp.png', format='PNG')
+
 def make_label():
     now = time.strftime('%b %d %I:%M %p',time.localtime())
     
@@ -96,18 +111,9 @@ def make_label():
         draw_contents.text(int(img.width-res * 0.1), int(res * 0.7), now)
         draw_contents(img)
         
-        az_bc = treepoem.generate_barcode(
-            barcode_type = "azteccode",
-            data = milm_config.BARCODE_DATA,
-            )
         
-        csn_bc = treepoem.generate_barcode(
-            barcode_type = "code128",
-            data = milm_config.CSN,
-            )
+        make_barcodes()
         
-        
-        az_bc.save('aztmp.png', format='PNG')
         draw_az = Drawing()
         az_bc_w = Image(filename='aztmp.png')
         az_bc_w.resize(width=int(az_bc_w.width*1.4), height=int(az_bc_w.height*1.4), filter='point')
@@ -115,7 +121,7 @@ def make_label():
             width=az_bc_w.width, height=az_bc_w.height, image=az_bc_w)
         draw_az(img)
         
-        csn_bc.save('csntmp.png', format='PNG')
+        
         draw_csnbc = Drawing()
         csn_bc_w = Image(filename='csntmp.png')
         csn_bc_w.resize(width=int(csn_bc_w.width * 2.3), height=int(csn_bc_w.height), filter='point')
@@ -128,11 +134,9 @@ def make_label():
         subprocess.run(
             ["brother_ql_create --model QL-800 --label-size 62 ./temp.png > labelout.bin"],
             shell=True, check=False)
-        subprocess.run([f"brother_ql_print labelout.bin {milm_config.PRINTER_IDENTIFIER}"],
-            shell=True, check=False)
+        # subprocess.run([f"brother_ql_print labelout.bin {milm_config.PRINTER_IDENTIFIER}"],
+#             shell=True, check=False)
         os.remove('temp.png')
-        os.remove('aztmp.png')
-        os.remove('csntmp.png')
         os.remove('labelout.bin')
 
 if __name__ == "__main__":
