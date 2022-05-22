@@ -20,7 +20,7 @@ If you get that keyboard, by the way, the keys default to `1` `2` and `3` respec
 
 ## License
 
-BSD license, except for `Roboto-Medium.ttf` which is released under the Apache license: <https://fonts.google.com/specimen/Roboto>
+Lee Brotherston's "Lee's Shitheads Prohibited Licence," <https://github.com/LeeBrotherston/leecence/blob/master/LSHPL.txt> , except for `Roboto-Medium.ttf` which is released under the Apache license: <https://fonts.google.com/specimen/Roboto>
 
 ## Usage
 
